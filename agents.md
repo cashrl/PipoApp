@@ -43,7 +43,7 @@ nova biblioteca ajudar significativamente, recomende, explique o porquê e
 ---
 ## Stack
 
-- Framework: React Native + **Expo SDK 54** + TypeScript
+- Framework: React Native + **Expo SDK 55** + TypeScript
 - Styling: NativeWind v4 (Tailwind para RN) — ver `package.json` para a versão instalada; não upgrade sem aprovação
 - State: Zustand
 - Navigation: Expo Router
@@ -308,16 +308,17 @@ NÃO há "moedas" nem loja — só acessórios ganhos por progresso de aula.
 ---
 ## Configuração do Ambiente (Expo + NatWind + Reanimated)
 
-### Versões Compatíveis (Expo SDK 54)
+### Versões Compatíveis (Expo SDK 55)
 
 | Pacote | Versão | Nota |
 |--------|--------|------|
-| `react-native` | `0.76.9` | Fixo pelo Expo SDK 54 |
-| `react-native-reanimated` | `~3.16.7` | **NÃO usar v4+** (exige RN 0.78+). Instalar com `--legacy-peer-deps` |
+| `react-native` | `0.81.5` | Fixo pelo Expo SDK 55 |
+| `react` | `19.1.0` | Fixo pelo Expo SDK 55 |
+| `react-native-reanimated` | `~4.1.1` | Compatível com SDK 55 |
 | `react-native-css-interop` | `^0.2.6` | Instalar no root com `--legacy-peer-deps` (nativewind o aninha, mas expo-router precisa no root) |
 | `nativewind` | `^4.1.23` | Puxa `react-native-css-interop` como dep aninhada |
-| `babel-preset-expo` | `~54.0.10` | Necessário para o Babel do Expo |
-| `react-native-worklets` | `0.5.1` | Requerido por expo-router |
+| `babel-preset-expo` | `~55.0.0` | Necessário para o Babel do Expo |
+| `expo-router` | `~6.0.24` | Compatível com SDK 55 |
 
 ### Arquivos de Config Obrigatórios
 
@@ -350,11 +351,11 @@ module.exports = withNativeWind(config, { input: "./global.css" });
 | Erro | Causa | Solução |
 |------|-------|---------|
 | `Cannot find module 'babel-preset-expo'` | Falta no package.json | `npx expo install babel-preset-expo` |
-| `Cannot find module 'react-native-worklets/plugin'` | Falta dependência do expo-router | `npx expo install react-native-worklets` |
 | `Unable to resolve "react-native-css-interop/jsx-runtime"` | Pacote aninhado em nativewind, não no root | `npm install react-native-css-interop --legacy-peer-deps` |
-| `Unable to resolve "react-native-reanimated"` | Versão incompatível (v4+ exige RN 0.78+) | `npm install react-native-reanimated@3.16.7 --legacy-peer-deps` |
-| `TurboModuleRegistry` / `PlatformConstants` | Nova Arquitetura (TurboModules) ativa | Adicionar `"newArchEnabled": false` no `app.json` |
+| `Unable to resolve "react-native-reanimated"` | Versão incompatível | `npm install react-native-reanimated@~4.1.1 --legacy-peer-deps` |
+| `TurboModuleRegistry` / `PlatformConstants` | Expo Go desatualizado vs SDK do projeto | Verificar versão do Expo Go e manter SDK do projeto compatível |
 | `Unable to resolve asset "./assets/icon.png"` | Asset não existe na pasta assets | Criar PNG na pasta `assets/` |
+| Versões incompatíveis no expo install | Expo Go atualizado mas projeto na SDK antiga | Atualizar package.json para bater com Expo Go, depois `rm -rf node_modules && npm install --legacy-peer-deps` |
 
 ### Comando de Instalação Completo (do zero)
 
@@ -364,8 +365,8 @@ rm -rf node_modules package-lock.json
 npm install --legacy-peer-deps
 
 # Se faltar algum pacote
-npx expo install babel-preset-expo react-native-worklets
-npm install react-native-css-interop react-native-reanimated@3.16.7 --legacy-peer-deps
+npx expo install babel-preset-expo
+npm install react-native-css-interop --legacy-peer-deps
 
 # Limpar cache do Metro
 npx expo start -c
@@ -373,14 +374,14 @@ npx expo start -c
 
 ### Regra Importante
 
-**NUNCA** instalar `react-native-reanimated@4.x` neste projeto — ele exige `react-native@0.78+` e quebra com Expo SDK 54 (RN 0.76.9). Sempre usar `@3.16.7`.
+**NUNCA** misturar versões do Expo SDK. O Expo Go no dispositivo e o `package.json` devem estar na mesma versão do SDK. Se o Expo Go atualizou, atualizar o projeto também.
 
 ---
 ## Quirks
 
 - NativeWind **NÃO** funciona com `SafeAreaView` → usar padding/margin no container (ver lista de exceções).
 - Expo Router exclusivo, não React Navigation.
-- `expo-audio` (não `expo-av`) — é o módulo atual pós-SDK 52/54.
+- `expo-audio` (não `expo-av`) — é o módulo atual pós-SDK 52+.
 - `expo-audio` não funciona no navegador Web → testar só em mobile/emulador.
 - AsyncStorage não aceita objetos complexos → `JSON.stringify`.
 - Interface 100% em **português**; o inglês fica só **dentro do conteúdo**
@@ -506,7 +507,7 @@ Antes de cada feature:
 ---
 ## Resumo das decisões do grilling (por referencia rapida)
 
-- SDK 54 + `expo-audio` (drop `expo-av`).
+- SDK 55 + `expo-audio` (drop `expo-av`).
 - Fluxo com **Tela de Aprendizado** (4 aulas; Animais aberto, 3 bloqueadas) entre Home e aula.
 - Aula de Animais = **3 atividades** (ouvir + 2 jogos), não só ouvir.
 - **Sem pressão de erro**: desbloqueio por conclusão; jogos com mecânica
