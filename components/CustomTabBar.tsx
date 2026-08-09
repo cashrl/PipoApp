@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Pressable, Image, Text } from "react-native";
+import { View, Pressable, Image, Text, Platform } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -25,24 +25,29 @@ export function CustomTabBar() {
   const rotaAtual = pathname === "/(tabs)" || pathname === "" ? "/(tabs)" : pathname;
 
   return (
-    <View style={{ paddingBottom: Math.max(insets.bottom, 8) }}>
+    <View
+      style={{
+        paddingBottom: Math.max(insets.bottom, 8),
+        backgroundColor: "#FFF9F2",
+      }}
+    >
       <View
         style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-around",
           marginHorizontal: 16,
-          backgroundColor: "#FFFFFF",
           borderRadius: 32,
-          paddingTop: 24,
-          paddingBottom: 16,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 4,
-          elevation: 3,
+          overflow: "hidden",
         }}
       >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-around",
+            backgroundColor: "#FFFFFF",
+            paddingTop: 24,
+            paddingBottom: 16,
+          }}
+        >
         {abas.map((aba) => {
           const ativo = rotaAtual === aba.rota;
           const cor = ativo ? "#4FBEF7" : "#B0B0B0";
@@ -75,6 +80,7 @@ export function CustomTabBar() {
             </Pressable>
           );
         })}
+        </View>
       </View>
     </View>
   );

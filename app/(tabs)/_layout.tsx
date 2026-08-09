@@ -8,6 +8,14 @@ export default function TabsLayout() {
       tabBar={() => <CustomTabBar />}
       screenOptions={{
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: "#FFF9F2",
+          elevation: 0,
+          shadowOpacity: 0,
+          shadowColor: "transparent",
+          borderTopWidth: 0,
+          overflow: "hidden",
+        },
       }}
     >
       <Tabs.Screen name="index" />
