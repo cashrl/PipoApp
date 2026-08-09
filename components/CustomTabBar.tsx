@@ -33,21 +33,16 @@ export function CustomTabBar() {
     >
       <View
         style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-around",
           marginHorizontal: 16,
+          backgroundColor: "#FFFFFF",
           borderRadius: 32,
-          overflow: "hidden",
+          paddingTop: 24,
+          paddingBottom: 16,
         }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-around",
-            backgroundColor: "#FFFFFF",
-            paddingTop: 24,
-            paddingBottom: 16,
-          }}
-        >
         {abas.map((aba) => {
           const ativo = rotaAtual === aba.rota;
           const cor = ativo ? "#4FBEF7" : "#B0B0B0";
@@ -56,6 +51,7 @@ export function CustomTabBar() {
             <Pressable
               key={aba.rota}
               style={{ alignItems: "center", flex: 1, paddingVertical: 4 }}
+              android_ripple={{ borderless: false, radius: 0, color: "transparent" }}
               onPress={() => router.push(aba.rota as any)}
             >
               <Image
@@ -80,7 +76,6 @@ export function CustomTabBar() {
             </Pressable>
           );
         })}
-        </View>
       </View>
     </View>
   );

@@ -14,7 +14,6 @@ export default function TabsLayout() {
           shadowOpacity: 0,
           shadowColor: "transparent",
           borderTopWidth: 0,
-          overflow: "hidden",
         },
       }}
     >
