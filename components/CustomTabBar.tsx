@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Pressable, Image, Text, Platform } from "react-native";
+import { View, Pressable, Image, Text } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
