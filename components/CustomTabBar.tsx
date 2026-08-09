@@ -25,7 +25,12 @@ export function CustomTabBar() {
   const rotaAtual = pathname === "/(tabs)" || pathname === "" ? "/(tabs)" : pathname;
 
   return (
-    <View style={{ paddingBottom: Math.max(insets.bottom, 8) }}>
+    <View
+      style={{
+        paddingBottom: Math.max(insets.bottom, 8),
+        backgroundColor: "#FFF9F2",
+      }}
+    >
       <View
         style={{
           flexDirection: "row",
@@ -36,11 +41,6 @@ export function CustomTabBar() {
           borderRadius: 32,
           paddingTop: 24,
           paddingBottom: 16,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 4,
-          elevation: 3,
         }}
       >
         {abas.map((aba) => {
@@ -51,6 +51,7 @@ export function CustomTabBar() {
             <Pressable
               key={aba.rota}
               style={{ alignItems: "center", flex: 1, paddingVertical: 4 }}
+              android_ripple={{ borderless: false, radius: 0, color: "transparent" }}
               onPress={() => router.push(aba.rota as any)}
             >
               <Image
